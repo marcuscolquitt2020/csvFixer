@@ -9,6 +9,7 @@ def M4_CSVUpdater(x1,x2,x3):
     finalpath = x3
     allFiles = glob.glob(inpath + "/*.csv")
     polefiles,wirefiles,guyfiles = 0,0,0
+    noCSV = []
 
     for file in allFiles:
         newName = os.path.basename(file)
@@ -33,10 +34,15 @@ def M4_CSVUpdater(x1,x2,x3):
             guydata = pd.read_csv(file)
             guydata.to_csv(newpath,index=False,header=False)
             guyfiles = guyfiles + 1
+        else:
+            noCSV.append(newName)
 
     print(f'Pole Files Generated: {polefiles}')
     print(f'Wire Files Generated: {wirefiles}')
     print(f'Guye Files Generated: {guyfiles}')
     print(f'Files saved to {finalpath}')
+    print('Files that did not get generated')
+    for row in noCSV:
+         print(row)
 
 M4_CSVUpdater(input('csv file path: '),input('wire file path: '),input('to be saved path: '))
